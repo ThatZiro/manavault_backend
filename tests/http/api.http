@@ -1,0 +1,32 @@
+### Signup Request
+POST http://localhost:3000/api/auth/signup
+Content-Type: application/json
+
+{
+  "email": "newtester@example.com",
+  "password": "password1234"
+}
+
+### Login Request
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "password123"
+}
+
+
+### Login Request Incorrect (Wrong Password)
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "test@example.com",
+  "password": "wrong password"
+}
+
+### Protected Route Token Verificatio
+GET http://localhost:3000/api/protected-route/login-token
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI1NzMwOTA4LCJleHAiOjE3MjU3MzQ1MDh9.8xqnsqA0kBMC-U-WS-LRtTn4fNIjdfXdOJ5wf5nOqwE
+Content-Type: application/json
