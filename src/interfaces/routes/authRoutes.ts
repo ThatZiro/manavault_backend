@@ -17,5 +17,9 @@ const router = express.Router();
 router.post('/signup', AuthController.signup);
 // Route for user /api/auth/login
 router.post('/login', AuthController.login);
+// Route for user /api/auth/forgot-password
+router.post('/forgot-password', AuthController.forgotPassword);
+// Route for user /api/auth/reset-password
+router.post('/reset-password', AuthController.resetPassword);
 
 export default router;

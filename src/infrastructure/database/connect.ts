@@ -30,7 +30,17 @@ const sequelize = new Sequelize(
 
 // Authenticate and establish connection
 sequelize.authenticate()
-  .then(() => console.log('Database connected...'))
-  .catch((err: any) => console.error('Error connecting to the database:', err));
+  .then(() => {
+    console.log('Database connected...');
+
+    // Sync all models with the database
+    return sequelize.sync({ force: true }); // force: true drops tables and recreates them
+  })
+  .then(() => {
+    console.log('Database & tables synced!');
+  })
+  .catch((err: any) => {
+    console.error('Error connecting to the database:', err);
+  });
 
 export default sequelize;

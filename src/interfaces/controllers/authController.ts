@@ -18,13 +18,9 @@ export class AuthController {
     const { email, password } = req.body;
     try {
       const user = await AuthService.signup(email, password);
-      res.status(201).json(user);
+      res.status(200).json(user);
     } catch (error) {
-      if (error instanceof Error) {
-        res.status(400).json({ message: error.message });
-      } else {
-        res.status(400).json({ message: 'An unknown error occurred' });
-      }
+      res.status(400).json({ message: error instanceof Error ? error.message : 'An unknown error occurred' });
     }
   }
 
@@ -42,14 +38,43 @@ export class AuthController {
   static async login(req: Request, res: Response) {
     const { email, password } = req.body;
     try {
-      const token = await AuthService.login(email, password);
-      res.status(200).json({ token });
-    } catch (error) {
-      if (error instanceof Error) {
-        res.status(401).json({ message: error.message });
+      const response = await AuthService.login(email, password);
+
+      if(response.status == 'success') {
+        return res.status(200).json(response);
       } else {
-        res.status(401).json({ message: 'An unknown error occurred' });
+        return res.status(201).json(response);
       }
+    } catch (error) {
+      res.status(401).json({ message: error instanceof Error ? error.message : 'An unknown error occurred' });
+    }
+  }
+
+  static async forgotPassword(req: Request, res: Response) {
+    const {email} = req.body;
+
+    try {
+      await AuthService.forgotPassword(email);
+
+      return res.status(200).json({message: "Password reset has been sent to your email"});
+    } catch (error) {
+      res.status(401).json({ message: error instanceof Error ? error.message : 'An unknown error occurred' });
+    }
+  }
+
+  static async resetPassword(req: Request, res: Response) {
+    const {token, password} = req.body;
+
+    try {
+      const response = await AuthService.resetPassword(token, password);
+
+      if(response.status == 'success') {
+        return res.status(200).json(response);
+      } else {
+        return res.status(201).json(response);
+      }
+    } catch (error) {
+      res.status(401).json({ message: error instanceof Error ? error.message : 'An unknown error occurred' });
     }
   }
 }

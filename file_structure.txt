@@ -1,0 +1,30 @@
+Folder PATH listing
+Volume serial number is 0000003D D850:8A8D
+C:\USERS\IMBRA\ONEDRIVE\DOCUMENTS\[09]_MTG\[02]_MANA_VAULT\REPO\MANAVAULT_BACKEND\SRC
+|   app.ts
+|   server.ts
+|   
++---application
++---domain
+|   \---auth
+|           authService.ts
+|           user.model.ts
+|           
++---infrastructure
+|   \---database
+|           connect.ts
+|           
++---interfaces
+|   +---controllers
+|   |       authController.ts
+|   |       
+|   +---middleware
+|   |       authMiddleware.ts
+|   |       
+|   \---routes
+|           authRoutes.ts
+|           protectedRoutes.ts
+|           
++---shared
++---tests
+\---types
