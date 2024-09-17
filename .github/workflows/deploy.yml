@@ -1,0 +1,39 @@
+name: Deploy to Development or Production
+
+on:
+  push:
+    branches:
+      - main    # Production branch
+      - dev     # Development branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Deploy to Development
+      - name: Install SSH Key for Development
+        if: github.ref == 'refs/heads/dev'
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DEV_SSH_KEY }}
+
+      - name: Deploy to Development Server
+        if: github.ref == 'refs/heads/dev'
+        run: |
+          ssh root@${{ secrets.DEV_SERVER_IP }} "cd /path/to/your/project && git pull origin dev && docker-compose down && docker-compose up -d"
+
+      # Deploy to Production
+      - name: Install SSH Key for Production
+        if: github.ref == 'refs/heads/main'
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.PROD_SSH_KEY }}
+
+      - name: Deploy to Production Server
+        if: github.ref == 'refs/heads/main'
+        run: |
+          ssh root@${{ secrets.PROD_SERVER_IP }} "cd /path/to/your/project && git pull origin main && docker-compose down && docker-compose up -d"
