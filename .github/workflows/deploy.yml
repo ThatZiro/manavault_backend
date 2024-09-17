@@ -1,0 +1,54 @@
+name: Deploy to Development or Production
+
+on:
+  push:
+    branches:
+      - main    # Production branch
+      - dev     # Development branch
+
+jobs:
+  # Development deployment job
+  deploy-dev:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/dev'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install SSH Key for Development
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.DEV_SSH_KEY }}
+
+      - name: Deploy to Development Server
+        run: |
+          ssh root@${{ secrets.DEV_SERVER_IP }} "
+            cd /path/to/your/project &&
+            git pull origin dev &&
+            npm install &&
+            pm2 start ecosystem.config.js --env development
+          "
+
+  # Production deployment job
+  deploy-prod:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install SSH Key for Production
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.PROD_SSH_KEY }}
+
+      - name: Deploy to Production Server
+        run: |
+          ssh root@${{ secrets.PROD_SERVER_IP }} "
+            cd /path/to/your/project &&
+            git pull origin main &&
+            npm install &&
+            pm2 start ecosystem.config.js --env production
+          "
