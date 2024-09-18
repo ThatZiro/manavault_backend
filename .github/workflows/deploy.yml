@@ -16,8 +16,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Add Development Server to Known Hosts
+      - name: Create .ssh directory and add Development Server to Known Hosts
         run: |
+          mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.DEV_SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Install SSH Key for Development
@@ -43,8 +44,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Add Production Server to Known Hosts
+      - name: Create .ssh directory and add Production Server to Known Hosts
         run: |
+          mkdir -p ~/.ssh
           ssh-keyscan -H ${{ secrets.PROD_SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Install SSH Key for Production
