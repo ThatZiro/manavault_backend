@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx ts-node src/server.ts",
-    "tree": "tree /f /a ./src > file_structure.txt"
+    "tree": "tree /f /a ./src > file_structure.txt",
+    "build": "tsc",
+    "start": "pm2 start ecosystem.config.js --env production"
   },
   "keywords": [],
   "author": "",
