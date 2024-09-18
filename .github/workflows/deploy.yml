@@ -10,11 +10,15 @@ jobs:
   # Development deployment job
   deploy-dev:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/dev'
+    if: github.ref == 'refs/heads/dev'  # This job will only run for the 'dev' branch
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Add Development Server to Known Hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.DEV_SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Install SSH Key for Development
         uses: webfactory/ssh-agent@v0.5.3
@@ -33,11 +37,15 @@ jobs:
   # Production deployment job
   deploy-prod:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/main'  # This job will only run for the 'main' branch
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Add Production Server to Known Hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.PROD_SERVER_IP }} >> ~/.ssh/known_hosts
 
       - name: Install SSH Key for Production
         uses: webfactory/ssh-agent@v0.5.3
