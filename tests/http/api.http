@@ -1,5 +1,5 @@
 ### Signup Request
-POST https://167.172.2.98/api/auth/signup
+POST http://167.172.2.98:8080/api/auth/signup
 Content-Type: application/json
 
 {
