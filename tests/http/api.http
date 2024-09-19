@@ -1,5 +1,5 @@
 ### Signup Request
-POST http://localhost:3000/api/auth/signup
+POST https://mana-vault.com/api/auth/signup
 Content-Type: application/json
 
 {
