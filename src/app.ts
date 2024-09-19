@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 const corsOptions = {
-  origin: '*',
+  origin: ['http://localhost:5173', 'https://mana-vault.com'],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
 }
 
