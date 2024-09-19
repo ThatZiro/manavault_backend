@@ -6,6 +6,7 @@ module.exports = {
       interpreter: "ts-node",
       env: {
         NODE_ENV: "development",
+        PORT: "3000"
       },
     },
     {
@@ -13,6 +14,7 @@ module.exports = {
       script: "./dist/server.js",
       env: {
         NODE_ENV: "production",
+        PORT: "8080"
       },
     },
   ],

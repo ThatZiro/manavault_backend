@@ -4,38 +4,8 @@ on:
   push:
     branches:
       - main    # Production branch
-      - dev     # Development branch
 
 jobs:
-  # Development deployment job
-  deploy-dev:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/dev'  # This job will only run for the 'dev' branch
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Create .ssh directory and add Development Server to Known Hosts
-        run: |
-          mkdir -p ~/.ssh
-          ssh-keyscan -H ${{ secrets.PROD_SERVER_IP }} >> ~/.ssh/known_hosts
-
-      - name: Install SSH Key for Development
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.PROD_SSH_KEY }}
-
-      - name: Deploy to Development Server
-        run: |
-          ssh root@${{ secrets.PROD_SERVER_IP }} "
-            cd /var/www/manavault_backend_dev &&
-            git pull origin dev &&
-            npm install &&
-            npm run build &&
-            pm2 start ecosystem.config.js --env development
-          "
-
   # Production deployment job
   deploy-prod:
     runs-on: ubuntu-latest
@@ -58,7 +28,7 @@ jobs:
       - name: Deploy to Production Server
         run: |
           ssh root@${{ secrets.PROD_SERVER_IP }} "
-            cd /var/www/manavault_backend &&
+            cd /var/www/manavault_backend_prod/manavault_backend &&
             git fetch origin main &&
             git reset --hard origin/main &&
             npm install &&
