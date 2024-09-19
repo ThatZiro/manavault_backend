@@ -14,7 +14,7 @@ sequelize.sync({ force: false }).then(() => {
   console.log('Database synced');
 
   // Create HTTPS server
-  https.createServer(httpsOptions, app).listen(443, () => {
-    console.log(`HTTPS server is running on port 443`);
+  https.createServer(httpsOptions, app).listen(8080, () => {
+    console.log(`HTTPS server is running on port 8080`);
   });
 });
