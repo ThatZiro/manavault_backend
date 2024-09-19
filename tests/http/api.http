@@ -1,5 +1,5 @@
 ### Signup Request
-POST https://mana-vault.com/api/auth/signup
+POST https://167.172.2.98/api/auth/signup
 Content-Type: application/json
 
 {
