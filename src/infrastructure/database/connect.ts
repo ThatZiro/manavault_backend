@@ -1,6 +1,5 @@
 import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
-
 dotenv.config();
 
 /**
@@ -15,15 +14,18 @@ dotenv.config();
  * - DB_USER: The database user.
  * - DB_PASSWORD: The user's password.
  * - DB_HOST: The host address of the database.
+ * - DB_PORT: The port used to access the database
  */
+const dbName = `${process.env.DB_NAME!}_${process.env.ENVIORNMENT}`;
 
 const sequelize = new Sequelize(
-  process.env.DB_NAME!,
+  dbName,
   process.env.DB_USER!,
   process.env.DB_PASSWORD!,
   {
     host: process.env.DB_HOST!,
     dialect: 'postgres',
+    port: Number(process.env.DB_PORT!),
     logging: false,
   }
 );
@@ -34,7 +36,7 @@ sequelize.authenticate()
     console.log('Database connected...');
 
     // Sync all models with the database
-    return sequelize.sync({ force: true }); // force: true drops tables and recreates them
+    return sequelize.sync({ alter: true }); // force: true drops tables and recreates them
   })
   .then(() => {
     console.log('Database & tables synced!');

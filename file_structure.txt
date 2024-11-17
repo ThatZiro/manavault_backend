@@ -1,5 +1,5 @@
 Folder PATH listing
-Volume serial number is 00000024 D850:8A8D
+Volume serial number is 00000044 D850:8A8D
 C:\USERS\IMBRA\ONEDRIVE\DOCUMENTS\[09]_MTG\[02]_MANA_VAULT\REPO\MANAVAULT_BACKEND\SRC
 |   app.ts
 |   server.ts
@@ -11,8 +11,16 @@ C:\USERS\IMBRA\ONEDRIVE\DOCUMENTS\[09]_MTG\[02]_MANA_VAULT\REPO\MANAVAULT_BACKEN
 |           user.model.ts
 |           
 +---infrastructure
-|   \---database
-|           connect.ts
+|   +---certificates
+|   +---database
+|   |   |   connect.ts
+|   |   |   
+|   |   \---models
+|   +---email
+|   |       emailService.ts
+|   |       
+|   \---scryfall
+|           updateCards.ts
 |           
 +---interfaces
 |   +---controllers

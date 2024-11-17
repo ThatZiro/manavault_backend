@@ -1,0 +1,27 @@
+### Search by Name
+GET http://localhost:8080/api/cards/search?name=surgical suit
+Content-Type: application/json
+
+### Filter by Color
+GET http://localhost:8080/api/cards/search?color=R
+Content-Type: application/json
+
+### Search by Type
+GET http://localhost:8080/api/cards/search?type=Artifact
+Content-Type: application/json
+
+### Search by Set TODO ==================================
+GET http://localhost:8080/api/cards/search?set=khm
+Content-Type: application/json
+
+### Combine Filters
+GET http://localhost:8080/api/cards/search?name=Dragon&color=R&type=Creature
+Content-Type: application/json
+
+### Paginated Search
+GET http://localhost:8080/api/cards/search?name=Elf&limit=1&offset=0&order=name&direction=asc
+Content-Type: application/json
+
+### Invalid or Empty Request
+GET http://localhost:8080/api/cards/search
+Content-Type: application/json
